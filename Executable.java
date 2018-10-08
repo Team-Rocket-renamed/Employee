@@ -31,6 +31,24 @@ public class Executable {
 			EmployeesPerDepartment(ms);
 		}
 		
+		//Story 3: Add a Sales Employee
+		if(Choice == 3) {
+			ResultSet NewEmployee = addEmployeeDetails(ms);
+			if(NewEmployee != null) {
+				String EmpId = "";
+					while(NewEmployee.next()) {
+						EmpId = NewEmployee.getString("employeeID");
+					}
+					
+					//System.out.println(EmpId);
+					addSalesEmployee(ms,EmpId);
+					System.out.println("");
+					System.out.println("SalesEmployee added");
+					
+			}
+			
+		}
+		
 		//String InsertStatement = "INSERT into EmployeeDetails VALUES (1, \"James Matchett\", \"Belfast\", \"PE284243G\", \"1234567890\", 100000.00);";
 		//addEmployeeDetails(ms);
 		
@@ -92,6 +110,7 @@ public class Executable {
 		m[3] = ("4. Employee net pay report"); //story 4
 		m[4] = ("5. Highest Sales Employee sales"); //story 5
 		m[5] = ("6. Projects sub-menu"); //stories 6 -> 7 here
+		m[6] = ("7. Log-out");
 		
 		System.out.println("");
 		for(String s : m) {
@@ -169,7 +188,10 @@ public class Executable {
 		return ms;
 	}
 	
-	public static void addEmployeeDetails(MySQLHandler ms) throws SQLException, IOException, InterruptedException {
+	//boolean is for if command was successful, useful for further steps
+	//i.e. sales-employee add which depends on this succeeding
+	public static ResultSet addEmployeeDetails(MySQLHandler ms) throws SQLException, IOException, InterruptedException {
+		try {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Input employee name");
 		String newName = "\"" + in.nextLine() + "\"";
@@ -188,6 +210,26 @@ public class Executable {
 		WrongInput(newSalary, 999999999, "employee starting salary");
 		//System.in.read();
 		ms.Statement(String.format("INSERT into EmployeeDetails(employeeName, employeeAddress, NINumber, employeeBank, employeeSalary) VALUES (%s, %s, %s, %s, %f)", newName, newAddress, newNIN, newBankNumber, newSalary));
+	    return ms.Query("Select * from EmployeeDetails where NINumber ="+newNIN);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
+	
+	}
+	
+	public static void addSalesEmployee(MySQLHandler ms, String EmpID) throws SQLException {
+		Scanner in = new Scanner(System.in);
+		System.out.println("--------");
+		System.out.println("Input Sales employee Comission rate");
+		float newComission = in.nextFloat();
+		System.out.println("Input employee total sales");
+		float newSales = in.nextFloat();
+		
+		ms.Statement(String.format("INSERT into SalesEmployee(employeeID, commissionRate, totalSales) "
+				+ "VALUES (%s, %f, %f)", 
+				EmpID, newComission, newSales));
+		
 	}
 	
 	//For NI number
