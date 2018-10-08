@@ -8,7 +8,7 @@ public class MySQLHandler {
 	private String _Password;
 	
 	Connection C;
-	
+	public Boolean Connected = false;
 	
 	
 	
@@ -16,11 +16,12 @@ public class MySQLHandler {
 		
 	}
 	
-	public MySQLHandler(String Hostname, String Username, String Password) {
+	public MySQLHandler(String Hostname, String Username, String Password) throws SQLException {
 		Connect(Hostname, Username, Password);
 	}
 	
-	public void Connect(String Hostname, String Username, String Password) {
+	public void Connect(String Hostname, String Username, String Password)
+	throws SQLException{
 		set_Hostname(Hostname);
 		set_Username(Username);
 		set_Password(Password);
@@ -28,9 +29,11 @@ public class MySQLHandler {
 		 try {
 			this.C = DriverManager.getConnection(Hostname,
 					Username, Password);
+			Connected = true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
+			Connected = false;
 		}
 	}
 	
@@ -73,6 +76,7 @@ public class MySQLHandler {
 	
 	public void Disconnect() throws SQLException {
 		C.close();
+		Connected = false;
 	}
 	
 	
