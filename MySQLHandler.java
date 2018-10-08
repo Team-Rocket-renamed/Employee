@@ -9,11 +9,7 @@ public class MySQLHandler {
 	
 	Connection C;
 	public Boolean Connected = false;
-	
-	
-	
 	public MySQLHandler() {
-		
 	}
 	
 	public MySQLHandler(String Hostname, String Username, String Password) throws SQLException {
@@ -25,7 +21,6 @@ public class MySQLHandler {
 		set_Hostname(Hostname);
 		set_Username(Username);
 		set_Password(Password);
-		
 		 try {
 			this.C = DriverManager.getConnection(Hostname,
 					Username, Password);
@@ -55,10 +50,6 @@ public class MySQLHandler {
 				Connect(this._Hostname,this._Username, this._Password);
 			}
 			st = C.createStatement();
-	
-			
-		
-		
 		ResultSet rs;
 		
 			rs = st.executeQuery(Quer);
@@ -68,22 +59,13 @@ public class MySQLHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		return null;
-		
-		
+		return null;	
 	}
 	
 	public void Disconnect() throws SQLException {
 		C.close();
 		Connected = false;
 	}
-	
-	
-		
-	
-	
-
 	
 	private String get_Hostname() {
 		return _Hostname;
