@@ -6,15 +6,15 @@ employeeName VARCHAR(30) not null,
 employeeAddress VARCHAR(100),
 NINumber VARCHAR(9) not null,
 employeeBank VARCHAR(36) not null,
-employeeSalary DECIMAL(11),
+employeeSalary DECIMAL(9,2),
 employeeDept VARCHAR(20));
 
 CREATE TABLE SalesEmployee(
 employeeID INT,
 FOREIGN KEY(employeeID)
 REFERENCES EmployeeDetails(employeeID),
-commissionRate DECIMAL (4),
-totalSales DECIMAL(11));
+commissionRate DECIMAL (4,2),
+totalSales DECIMAL(9,2));
 
 
 delimiter //
