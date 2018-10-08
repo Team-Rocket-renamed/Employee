@@ -49,6 +49,26 @@ public class Executable {
 			
 		}
 		
+		//Story 5: Sort Sales Employees by highest sales total
+		if(Choice == 5) {
+			ResultSet SalesTot = getSalesTotal(ms);
+			String lastName = "";
+			String lastSalesTotal = "";
+			while(SalesTot.next()) {
+				String Out = SalesTot.getString("employeeName") +" | Sales total: "
+						+ SalesTot.getString("totalSales");
+				
+				lastName = SalesTot.getString("employeeName");
+				lastSalesTotal = SalesTot.getString("totalSales");
+				
+				System.out.println(Out);
+			}
+			
+			System.out.println("");
+			String lm = "Give the most high-fives to "+lastName+" with a sales total of $"+lastSalesTotal;
+			System.out.println(lm);
+		}
+		
 		//String InsertStatement = "INSERT into EmployeeDetails VALUES (1, \"James Matchett\", \"Belfast\", \"PE284243G\", \"1234567890\", 100000.00);";
 		//addEmployeeDetails(ms);
 		
@@ -229,6 +249,12 @@ public class Executable {
 		ms.Statement(String.format("INSERT into SalesEmployee(employeeID, commissionRate, totalSales) "
 				+ "VALUES (%s, %f, %f)", 
 				EmpID, newComission, newSales));
+		
+	}
+	
+	public static ResultSet getSalesTotal(MySQLHandler ms) {
+		return ms.Query("SELECT * FROM EmployeeDetails JOIN SalesEmployee "
+				+ "ORDER BY SalesEmployee.totalSales");
 		
 	}
 	
