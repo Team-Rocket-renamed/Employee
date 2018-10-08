@@ -1,4 +1,4 @@
-package employee_stuff;
+package app;
 import java.sql.*;
 
 public class MySQLHandler {
@@ -34,11 +34,22 @@ public class MySQLHandler {
 		}
 	}
 	
+	public void Statement(String Statement) throws SQLException {
+		try {
+			if(C.isClosed()) {
+				Connect(this._Hostname,this._Username, this._Password);
+			}
+			Statement st = C.createStatement();
+			st.executeUpdate(Statement);
+			
+		} finally {}
+	}
+	
 	public ResultSet Query(String Quer) {
 		Statement st;
 		try {
 			if(C.isClosed()) {
-				Connect(this._Hostname,this._Username, this._Password)
+				Connect(this._Hostname,this._Username, this._Password);
 			}
 			st = C.createStatement();
 	
