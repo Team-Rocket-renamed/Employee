@@ -1,5 +1,6 @@
 package app;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ public class Executable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, IOException, InterruptedException {
 		// TODO Auto-generated method stub
 		String Hostname = "jdbc:mysql://localhost/Company?useSSL=false";
 		String Username = "Conor";
@@ -33,20 +34,25 @@ public class Executable {
 		}
 	}
 	
-	public static void addEmployeeDetails() throws SQLException {
+	public static void addEmployeeDetails() throws SQLException, IOException, InterruptedException {
 		Scanner in = new Scanner(System.in);
 		System.out.println("Input employee ID");
 		int newID = in.nextInt();
 		System.out.println("Input employee name");
-		String newName = in.next();
+		String newName = in.nextLine();
+		in.nextLine();
 		System.out.println("Input employee address");
-		String newAddress = in.next();
+		String newAddress = in.nextLine();
+		in.nextLine();
 		System.out.println("Input employee NIN");
-		String newNIN = in.next();
+		String newNIN = in.nextLine();
+		in.nextLine();
 		System.out.println("Input employee bank number");
-		String newBankNumber = in.next();
+		String newBankNumber = in.nextLine();
+		in.nextLine();
 		System.out.println("Input employee starting salary");
 		float newSalary = in.nextFloat();
+		//System.in.read();
 		String Hostname = "jdbc:mysql://localhost/Company?useSSL=false";
 		String Username = "Conor";
 		String Password = "password";
