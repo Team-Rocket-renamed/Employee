@@ -9,7 +9,16 @@ employeeBank VARCHAR(36) not null,
 employeeSalary DECIMAL(11),
 employeeDept VARCHAR(20));
 
+CREATE TABLE SalesEmployee(
+employeeID INT,
+FOREIGN KEY(employeeID)
+REFERENCES EmployeeDetails(employeeID),
+commissionRate DECIMAL (4),
+totalSales DECIMAL(11));
+
+
 delimiter //
+
 create procedure testData()
 
 BEGIN
