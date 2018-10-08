@@ -29,6 +29,8 @@ BEGIN
 	INSERT into EmployeeDetails VALUES (5, "Roisin Goodman", "Teconnaught", "PFFH243GH", "123S3842890", 500000.00, 'Digital Services');
   	INSERT into EmployeeDetails VALUES (6, "John Smith", "Dublin", "PFFHE83GH", "123S384450", 20000.00, 'Digital Services');
 	INSERT into EmployeeDetails VALUES (7, "Joe Bloggs", "China", "P2YH243GH", "123S3842812", 10000.00, 'Evolve');
+    INSERT into SalesEmployee VALUES (1, 0.14, 12000);
+    INSERT into SalesEmployee VALUES (2, 0.25, 14000);
 END //
 delimiter ;
 
