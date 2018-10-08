@@ -44,12 +44,12 @@ public class Executable {
 		Boolean success = false;
 		while(!success) {
 			try {
-				String Hostname = "jdbc:mysql://localhost/Company?useSSL=false";
 				String user = "";
+				String pwd = "";
+				String Hostname = "jdbc:mysql://localhost/Company?useSSL=false";
 				System.out.println("Enter username");
 				user = s.nextLine();
 				System.out.println("Enter password");
-				String pwd = "";
 				pwd = s.nextLine();
 				ms = new MySQLHandler(Hostname,user,pwd);
 				success = ms.Connected;
@@ -59,6 +59,7 @@ public class Executable {
 					System.out.println("Incorrect details");
 				}
 			} catch(SQLException e) {
+				//pray that it works
 				success = false;
 			}
 		}
