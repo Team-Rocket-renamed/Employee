@@ -49,6 +49,21 @@ public class Executable {
 			
 		}
 		
+		//Story 4: Report of employees net pay
+		if(Choice == 4) {
+			ResultSet repo = getNetPay(ms);
+			while(repo.next()) {
+				
+				//TODO, divide by 12 and calc tax etc
+				float totes = Float.valueOf((repo.getString("total")));
+				totes = (float) ((totes/12) * 0.75);
+				String Out = "$"+totes+" | Name: "+repo.getString("employeeName")
+				+ " | " + repo.getString("employeeID");
+				
+				System.out.println(Out);
+			}
+		}
+		
 		//Story 5: Sort Sales Employees by highest sales total
 		if(Choice == 5) {
 			ResultSet SalesTot = getSalesTotal(ms);
@@ -105,7 +120,7 @@ public class Executable {
 		while(rs.next()) {
 			
 			String Dept = rs.getString("employeeDept");
-			if(Dept == "") {
+			if(Dept == "" || Dept == null) {
 				Dept = "No Department";
 			}
 			
@@ -115,7 +130,7 @@ public class Executable {
 			
 			lastRs = Dept;
 			
-			String out = String.format("Emp ID: %d | %s | %s | %s Department", rs.getInt("employeeID"),
+			String out = String.format("Emp ID: %d | %s | %s | %s", rs.getInt("employeeID"),
 					rs.getString("employeeName"), rs.getString("NINumber"), Dept);
 			
 			System.out.println(out);
@@ -256,6 +271,14 @@ public class Executable {
 		return ms.Query("SELECT * FROM EmployeeDetails JOIN SalesEmployee "
 				+ "ORDER BY SalesEmployee.totalSales");
 		
+	}
+	
+	public static ResultSet getNetPay(MySQLHandler ms) {
+		return ms.Query("select employeeID, employeeName, employeeSalary + ifnull((select(commissionRate * totalSales) from SalesEmployee \n" + 
+				"where SalesEmployee.employeeID = EmployeeDetails.employeeID),0) as total\n" + 
+				"from EmployeeDetails\n" + 
+				"");
+
 	}
 	
 	//For NI number
